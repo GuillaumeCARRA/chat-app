@@ -6,7 +6,7 @@ function Searchbar() {
   return (
     <div className='search'>
       <div className='search__form'> 
-        <input type="text" placeholder='trouver un utilisateur'/>
+        <input type="text" placeholder='Trouver un utilisateur'/>
       </div>
       <div className='user__chat'>
         <img src="https://images.pexels.com/photos/13885383/pexels-photo-13885383.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""/>

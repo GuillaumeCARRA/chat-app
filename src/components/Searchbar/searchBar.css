@@ -1,0 +1,38 @@
+.search {
+    border-bottom: 1px solid gray;
+}
+
+.search__form {
+    padding: 10px;
+}
+
+.search__form input {
+    background-color: transparent;
+    outline-style: none;
+    border: none;
+    color: #ffffff
+}
+
+.search__form input::placeholder {
+    color: lightgray; 
+}
+
+.user__chat {
+    padding: 10px;
+    display: flex;
+}
+
+.user__chat img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user__info {
+
+}
+
+.user__name {
+
+}

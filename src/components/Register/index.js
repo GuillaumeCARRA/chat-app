@@ -3,14 +3,18 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase"; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
 
 import AddAvatar from '../../assets/images/addAvatar.png';
 
 import './register.css';
 
+
 function Register() {
 
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
  
   const handleSubmit = async (e) => {
     // we dont want to refresh the page when we submit
@@ -59,8 +63,11 @@ function Register() {
             });
             // userChats collection 
             await setDoc(doc(db, "userChats", response.user.uid), {
-              
-            })
+            });
+
+            //after succesful operation like register
+            //we can go to home page
+            navigate("/")
           });
         }
       );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth"; 
-import { auth } from "../../firebase"; 
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"; 
+import { auth, db, storage } from "../../firebase"; 
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore"; 
 
 import AddAvatar from '../../assets/images/addAvatar.png';
 
@@ -8,7 +10,8 @@ import './register.css';
 
 function Register() {
 
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+  // console.log(error);
 
   const handleSubmit = async (e) => {
     // we dont want to refresh the page when we submit
@@ -21,21 +24,48 @@ function Register() {
     const file = e.target[3].files[0];
 
     try{
-      const response = await createUserWithEmailAndPassword(auth, email, password)
+
+      //Create user
+      const response = await createUserWithEmailAndPassword(auth, email, password); 
+
+      const storageRef = ref(storage, displayName);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+  
+      uploadTask.on(
+        (error) => {
+          // Handle unsuccessful uploads
+          console.log(error);
+          setError(true)
+        }, 
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('File available at', downloadURL);
+            // user from updateProile
+            // photoUrl && display name from e.target[0].value
+            await updateProfile(response.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
+            // create an user on the db of firebase
+            await setDoc(doc(db, "users", response.user.uid), {
+              id: response.user.uid,
+              displayName, 
+              email,
+              photoURL: downloadURL,
+              role: "user"
+            });
+            console.log('the db', setDoc());
+          });
+        }
+      );
     } catch (error) {
+      console.log('error', error)
       setError(true); 
     }
-
-    
-    // .then((userCredential) => {
-    //   const user = userCredential.user; 
-    //   console.log('user', user);
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    // })
-
 
   }; 
 

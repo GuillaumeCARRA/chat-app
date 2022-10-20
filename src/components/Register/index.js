@@ -11,8 +11,7 @@ import './register.css';
 function Register() {
 
   const [error, setError] = useState(false);
-  // console.log(error);
-
+ 
   const handleSubmit = async (e) => {
     // we dont want to refresh the page when we submit
     e.preventDefault();
@@ -25,7 +24,7 @@ function Register() {
 
     try{
 
-      //Create user
+      // Create user
       const response = await createUserWithEmailAndPassword(auth, email, password); 
 
       const storageRef = ref(storage, displayName);
@@ -36,7 +35,7 @@ function Register() {
       uploadTask.on(
         (error) => {
           // Handle unsuccessful uploads
-          console.log(error);
+          // console.log(error);
           setError(true)
         }, 
         () => {
@@ -58,12 +57,10 @@ function Register() {
               photoURL: downloadURL,
               role: "user"
             });
-            console.log('the db', setDoc());
           });
         }
       );
     } catch (error) {
-      console.log('error', error)
       setError(true); 
     }
 

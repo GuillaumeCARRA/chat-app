@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from "firebase/auth"; 
 import { auth } from "../../firebase"; 
 
@@ -8,7 +8,9 @@ import './register.css';
 
 function Register() {
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState(false)
+
+  const handleSubmit = async (e) => {
     // we dont want to refresh the page when we submit
     e.preventDefault();
     console.log('target', e.target[0].value);
@@ -18,18 +20,24 @@ function Register() {
     const password = e.target[2].value;
     const file = e.target[3].files[0];
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user; 
-      console.log('user', user);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    })
+    try{
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      setError(true); 
+    }
+
+    
+    // .then((userCredential) => {
+    //   const user = userCredential.user; 
+    //   console.log('user', user);
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    // })
 
 
-  }
+  }; 
 
   
  
@@ -49,8 +57,9 @@ function Register() {
             <span>Photo de profil</span>
           </label>
           <button className='form__btn'>Créer un profil</button>
-          <p className='form__signin'>Vous possédez déjà un compte ? Connectez-vous</p>
+          {error && <span>Quelque chose ne va pas</span>}
         </form>
+        <p className='form__signin'>Vous possédez déjà un compte ? Connectez-vous</p>
       </div>
     </div>
   )

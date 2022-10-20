@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"; 
+import { getStorage } from "firebase/storage";
 
 
 const {
@@ -28,3 +29,17 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth();
+
+// Create a root reference
+export const storage = getStorage();
+
+
+// Create a reference to 'mountains.jpg'
+// const mountainsRef = ref(storage, 'mountains.jpg');
+
+// // Create a reference to 'images/mountains.jpg'
+// const mountainImagesRef = ref(storage, 'images/mountains.jpg');
+
+// // While the file names are the same, the references point to different files
+// mountainsRef.name === mountainImagesRef.name;           // true
+// mountainsRef.fullPath === mountainImagesRef.fullPath;   // false 

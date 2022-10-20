@@ -57,6 +57,10 @@ function Register() {
               photoURL: downloadURL,
               role: "user"
             });
+            // userChats collection 
+            await setDoc(doc(db, "userChats", response.user.uid), {
+              
+            })
           });
         }
       );

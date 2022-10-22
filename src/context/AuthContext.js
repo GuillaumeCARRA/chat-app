@@ -14,19 +14,26 @@ export const AuthContextProvider = ({children}) => {
     // we check if we have an user or not
     useEffect(() => {
         // firebase function
-        onAuthStateChanged(auth, (user) => {
+        const unsub = onAuthStateChanged(auth, (user) => {
             setCurrUser(user);
             console.log('user connected', user);
       });
+
+      // clean up function for realtime operation
+      // otherwise its gonna cause memory leaking
+      return () => {
+            unsub();
+      };
     }, []);
 
-    // children gonna be App.js
-    // this components can reach the current user
-    // and so any components that we wrap with this auth context provider
-    // will be able to reach this current user.
-    <AuthContext.Provider value={{currUser}}>
+    return (
+        // children gonna be App.js
+        // this components can reach the current user
+        // and so any components that we wrap with this auth context provider
+        // will be able to reach this current user.
+        <AuthContext.Provider value={{currUser}}>
         {children}
-    </AuthContext.Provider>
-
+        </AuthContext.Provider>
+    )
 };
 

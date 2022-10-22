@@ -35,7 +35,7 @@ function Searchbar() {
 
   };
 
-  // listen for ou keyboard action
+  // listen for our keyboard action
   const handleKey = (e) => {
     e.code === "Enter" && handleSearchUser();
   };

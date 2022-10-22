@@ -26,6 +26,8 @@ function App() {
     if(!currUser) {
       return <Navigate to="/login"/>
     }
+
+    return children; 
   }
 
   return (

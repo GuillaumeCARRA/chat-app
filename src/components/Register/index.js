@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase"; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import AddAvatar from '../../assets/images/addAvatar.png';
 
@@ -97,7 +97,7 @@ function Register() {
           <button className='form__btn'>Créer un profil</button>
           {error && <span>Quelque chose ne va pas</span>}
         </form>
-        <p className='form__signin'>Vous possédez déjà un compte ? Connectez-vous</p>
+        <p className='form__signin'>Vous possédez déjà un compte ? <Link to="/login">Connectez-vous</Link></p>
       </div>
     </div>
   )

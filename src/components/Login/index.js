@@ -17,6 +17,7 @@ function Login() {
     e.preventDefault();
     console.log('target', e.target[0].value);
     // e.target[0].value because we have multiple input
+    // email & password for connected our user
     const email = e.target[0].value;
     const password = e.target[1].value;
     

@@ -61,30 +61,29 @@ function Searchbar() {
         await setDoc(doc(db, "chats", combinedId), {messages: []});
         
         // create user chats 
-        await updateDoc(doc(db, 'userChats', currUser.uid),{
-          [combinedId+".userInfo"]: {
-            id: user.uid,
+        await updateDoc(doc(db, "userChats", currUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
             role: "user"
           },
-          [combinedId+".date"]: serverTimestamp()
+          [combinedId + ".date"]: serverTimestamp(),
         });
 
         // for the other user
-        await updateDoc(doc(db, 'userChats', user.uid),{
-          [combinedId+".userInfo"]: {
+        await updateDoc(doc(db, "userChats", user.uid),{
+          [combinedId + ".userInfo"]: {
             id: currUser.uid,
             displayName: currUser.displayName,
-            photoURL: currUser.photoURL
+            photoURL: currUser.photoURL,
+            role: "user"
           },
-          [combinedId+".date"]: serverTimestamp()
+          [combinedId+".date"]: serverTimestamp(),
         });
 
       }
-      
-      
-    }catch(error) {
+    } catch(error) {
       console.log('error', error);
     }
 

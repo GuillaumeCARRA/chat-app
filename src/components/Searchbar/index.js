@@ -16,7 +16,7 @@ function Searchbar() {
   
   const [error, setError] = useState(false);
 
-  const {currUser} = useContext(AuthContext)
+  const { currUser } = useContext(AuthContext)
 
   // search an user
   const handleSearchUser = async () => {
@@ -58,15 +58,15 @@ function Searchbar() {
       //exists from firebase
       if(!response.exists()){
         // create a chat in chats collection
-        await setDoc(doc(db, "chats", combinedId), {messages: []});
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
         
         // create user chats 
         await updateDoc(doc(db, "userChats", currUser.uid), {
           [combinedId + ".userInfo"]: {
-            uid: user.uid,
+            uid: user.id,
             displayName: user.displayName,
             photoURL: user.photoURL,
-            role: "user"
+            role: "user",
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
@@ -74,10 +74,10 @@ function Searchbar() {
         // for the other user
         await updateDoc(doc(db, "userChats", user.uid),{
           [combinedId + ".userInfo"]: {
-            id: currUser.uid,
+            uid: currUser.id,
             displayName: currUser.displayName,
             photoURL: currUser.photoURL,
-            role: "user"
+            // role: "user"
           },
           [combinedId+".date"]: serverTimestamp(),
         });
@@ -86,10 +86,6 @@ function Searchbar() {
     } catch(error) {
       console.log('error', error);
     }
-
-    
-
-  
   }
 
   return (

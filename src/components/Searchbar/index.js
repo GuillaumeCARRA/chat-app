@@ -86,6 +86,10 @@ function Searchbar() {
     } catch(error) {
       console.log('error', error);
     }
+    setUser(null);
+
+    // 
+    setUsername('')
   }
 
   return (
@@ -96,6 +100,7 @@ function Searchbar() {
           placeholder='Trouver un utilisateur' 
           onKeyDown={handleKey} 
           onChange={e => setUsername(e.target.value)}
+          value={username}
         />
       </div>
       {error && <span>Utilisateur introuvable</span>}

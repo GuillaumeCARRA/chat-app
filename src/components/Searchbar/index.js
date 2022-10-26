@@ -86,9 +86,11 @@ function Searchbar() {
     } catch(error) {
       console.log('error', error);
     }
+
+    // for reset the placeholder 
     setUser(null);
 
-    // 
+    // for reset the user when we click on him
     setUsername('')
   }
 

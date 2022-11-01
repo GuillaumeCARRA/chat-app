@@ -43,7 +43,7 @@ function Chats() {
 
   return (
     <div className='chats'>
-      {Object.entries(chats)?.map(chat =>(
+      {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map(chat =>(
       <div className='user__chat' key={chat[0]} onClick={()=>handleSelect(chat[1].userInfo)}>
         <img src={chat[1].userInfo.photoURL} alt="avatar"/>
         <div className='user__info'>

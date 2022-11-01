@@ -7,23 +7,23 @@ import './message.css';
 function Message({message}) {
 
 
-  console.log(message);
+  console.log('mess', message);
   const {currUser} = useContext(AuthContext);
   const {data} = useContext(ChatContext);
 
   return (
-    <div className='message owner'>
-      {/* <div className='message__info'>
+    <div className={`message ${message.senderId === currUser.uid && "owner"}`}>
+      <div className='message__info'>
         <img 
-          src="" 
-          alt="fleurs"
+          src={message.senderId === currUser.uid ? currUser.photoURL : data.user.photoURL} 
+          alt="avatar"
         />
-        <span>à l'instant</span>
+        <span>A l'instant</span>
       </div>
       <div className='message__content'>
-        <p>Hello</p>
-        <img src="https://images.pexels.com/photos/12390070/pexels-photo-12390070.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="fleurs" />
-      </div> */}
+        <p>{message.text}</p>
+        {message.img && <img src={message.img} alt="avatar" />}
+      </div>
     </div>
   )
 }

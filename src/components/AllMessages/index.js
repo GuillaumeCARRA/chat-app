@@ -10,7 +10,7 @@ import './allMessages.css';
 function AllMessages() {
 
   const [messages, setMessages] = useState([]);
-
+ 
   const { data } = useContext(ChatContext);
   
   useEffect(() => {
@@ -29,7 +29,7 @@ function AllMessages() {
   return (
     <div className='allMessages'>
       {messages.map(message => (
-        <Message message={message} />
+        <Message message={message} key={message.id} />
       ))}
     </div>
   )

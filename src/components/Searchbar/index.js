@@ -47,9 +47,9 @@ function Searchbar() {
   const handleSelect = async () => {
     // check whether the group(chats in firestore) exists
     // if not create 
-    const combinedId = currUser.id > user.id 
-    ? currUser.id + user.id 
-    : user.id + currUser.id;
+    const combinedId = currUser.uid > user.id 
+    ? currUser.uid + user.id 
+    : user.id + currUser.uid;
 
     try{
       const response = await getDoc(doc(db, "chats", combinedId));
@@ -74,7 +74,7 @@ function Searchbar() {
         // for the other user
         await updateDoc(doc(db, "userChats", user.uid),{
           [combinedId + ".userInfo"]: {
-            uid: currUser.id,
+            uid: currUser.uid,
             displayName: currUser.displayName,
             photoURL: currUser.photoURL,
             // role: "user"

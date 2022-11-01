@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { ChatContext } from '../../context/ChatContext';
-import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { db, storage } from '../../firebase';
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +17,7 @@ function Input() {
 
   //send text
   const [text, setText] = useState("");
-  console.log('text', text);
+  // console.log('text', text);
 
   //send image
   const [img, setImg] = useState("");
@@ -65,13 +65,34 @@ function Input() {
           date:Timestamp.now(),
         }),
       });
- 
     }
-  }
+
+    await updateDoc(doc(db, "userChats", currUser.uid), {
+      [data.chatId + ".lastMessage"] : {
+        text
+      },
+      [data.chatId + ".date"]: serverTimestamp()
+    });
+
+    await updateDoc(doc(db, "userChats", data.user.id), {
+      [data.chatId + ".lastMessage"] : {
+        text
+      },
+      [data.chatId + ".date"]: serverTimestamp()
+    });
+
+    setText("");
+    setImg(null);
+  };
 
   return (
     <div className='input'>
-      <input type="text" placeholder='Entrez votre message ici' onChange={e =>setText(e.target.value)}/>
+      <input 
+        type="text" 
+        placeholder='Entrez votre message ici' 
+        onChange={e =>setText(e.target.value)}
+        value={text}
+      />
       <div className='input__send'>
         <img src={Attach} alt="piece jointe"/>
         <input type="file" style={{display: "none"}} id="file" onChange={e =>setImg(e.target.files[0])}/>

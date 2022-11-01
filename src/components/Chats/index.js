@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { ChatContext } from '../../context/ChatContext';
 import { doc, onSnapshot } from "firebase/firestore";
 import {db} from "../../firebase"; 
 
 import './chats.css';
+
 
 
 function Chats() {
@@ -12,6 +14,8 @@ function Chats() {
   const [chats, setChats] = useState([]); 
 
   const {currUser} = useContext(AuthContext);
+  const {dispatch} = useContext(ChatContext);
+  
 
   // we listen in realtime the app when there is some changes
   useEffect(() => {
@@ -31,10 +35,14 @@ function Chats() {
 
   // Object.entries converted object into an array
 
+  const handleSelect = (u) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+  }
+
   return (
     <div className='chats'>
       {Object.entries(chats)?.map(chat =>(
-      <div className='user__chat' key={chat[0]}>
+      <div className='user__chat' key={chat[0]} onClick={()=>handleSelect(chat[1].userInfo)}>
         <img src={chat[1].userInfo.photoURL} alt="avatar"/>
         <div className='user__info'>
           <span className='user__name'>{chat[1].userInfo.displayName}</span>

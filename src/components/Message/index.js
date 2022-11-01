@@ -2,7 +2,10 @@ import React from 'react';
 
 import './message.css';
 
-function Message() {
+function Message({message}) {
+
+  console.log('message mec', message);
+
   return (
     <div className='message owner'>
       <div className='message__info'>

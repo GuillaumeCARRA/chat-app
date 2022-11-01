@@ -14,7 +14,7 @@ export const ChatContext = createContext();
 export const ChatContextProvider = ({children}) => {
 
     const {currUser} = useContext(AuthContext);
-   
+  
     const INITIAL_STATE = {
         chatId: "null",
         user: {}
@@ -25,9 +25,9 @@ export const ChatContextProvider = ({children}) => {
             case "CHANGE_USER":
                 return {
                     user: action.payload, 
-                    chatId: currUser.id > action.payload.id 
-                    ? currUser.id + action.payload.id 
-                    : action.payload.id + currUser.id
+                    chatId: currUser.uid > action.payload.uid 
+                    ? currUser.uid + action.payload.uid 
+                    : action.payload.uid + currUser.uid
                 }
             default: 
                 return state;

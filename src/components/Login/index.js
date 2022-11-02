@@ -15,7 +15,7 @@ function Login() {
   const handleSubmit = async (e) => {
     // we dont want to refresh the page when we submit
     e.preventDefault();
-    console.log('target', e.target[0].value);
+    // console.log('target', e.target[0].value);
     // e.target[0].value because we have multiple input
     // email & password for connected our user
     const email = e.target[0].value;

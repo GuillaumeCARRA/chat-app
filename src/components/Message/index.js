@@ -7,7 +7,7 @@ import './message.css';
 function Message({message}) {
 
 
-  console.log('mess', message);
+  // console.log('mess', message);
   const {currUser} = useContext(AuthContext);
   const {data} = useContext(ChatContext);
 

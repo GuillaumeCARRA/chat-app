@@ -31,13 +31,14 @@ function Chats() {
     };
     currUser.uid && getChats()
   }, [currUser.uid])
-
-  console.log('miaou', Object.entries(chats));
-
+  
   // Object.entries converted object into an array
+  // console.log(Object.entries(chats));
+
+  
 
   const handleSelect = (u) => {
-    console.log('u', u);
+    // console.log('u', u);
     dispatch({ type: "CHANGE_USER", payload: u });
   }
 

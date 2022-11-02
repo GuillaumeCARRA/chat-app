@@ -24,7 +24,7 @@ function AllMessages() {
 
   }, [data.chatId])
 
-  console.log('all messages', messages)
+  // console.log('all messages', messages)
 
   return (
     <div className='allMessages'>

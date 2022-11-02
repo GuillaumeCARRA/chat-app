@@ -53,7 +53,7 @@ function Searchbar() {
 
     try{
       const response = await getDoc(doc(db, "chats", combinedId));
-      console.log('res 1', response);
+      // console.log('res 1', response);
 
       //exists from firebase
       if(!response.exists()){
